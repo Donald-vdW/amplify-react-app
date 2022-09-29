@@ -1,24 +1,37 @@
-import logo from './logo.svg';
+import HomeCom from "./Components/HomeCom"
+import HomeAuth from "./Components/HomeAuth"
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import Login from "./Components/Login";
+import SignUpUser from "./Components/SignUpUser";
+import SignUpAuthority from "./Components/SignUpAuthority";
+import React, { Component } from "react";
+import Profile from "./Components/Profile";
+import ProfileAuth from "./Components/ProfileAuth";
 
 function App() {
+  const handleLogout = () => {
+    window.location.pathname = "/login";
+  };
+
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+        <Routes>
+          <Route exact path="/" element={<HomeCom />} />
+          <Route exact path="/homeAuth" element={<HomeAuth />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/logout" element={handleLogout } />
+          <Route exact path="/signupcom" element={<SignUpUser />} />
+          <Route exact path="/signupAuth" element={<SignUpAuthority />} />
+          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/profileAuth" element={<ProfileAuth />} />
+        </Routes>
+    </Router>
+
   );
 }
 
