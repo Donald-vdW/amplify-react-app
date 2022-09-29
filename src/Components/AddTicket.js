@@ -74,7 +74,9 @@ export const AddTicket = () => {
       heading: heading,
       description: description,
       urgency: urgency,
-      Authority: authority
+      Authority: authority,
+      latitude: location[0],
+      longitude: location[1]
     }
 
       const api = "https://6mby5e4aqe.execute-api.us-east-1.amazonaws.com/ticket/tickets";

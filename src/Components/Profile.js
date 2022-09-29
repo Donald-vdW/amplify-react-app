@@ -2,9 +2,6 @@ import '../App.css';
 import React from 'react'
 
 const handleLogout = () => {
-    //backendLogout();
-    //localStorage.clear();
-    //sessionStorage.clear();
     window.location.pathname = "/login";
 };
 
@@ -74,7 +71,6 @@ const Profile = () => {
             </div>
         </>
     )
-
 }
 
 export default Profile;

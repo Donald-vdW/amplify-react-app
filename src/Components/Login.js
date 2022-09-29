@@ -91,10 +91,6 @@ const Profile = ({
         </form>
     </div>
 
-
-
-
-
 class Login extends React.Component {
     state = {
         email: '',
@@ -115,14 +111,6 @@ class Login extends React.Component {
             password,
         });
     }
-
-    // handleSubmit = e => {
-    //     e.preventDefault()
-
-    //     localStorage.setItem("isAuthenticated", true);
-    //     window.location.pathname = "/";
-
-    // }
 
     render() {
         const {
@@ -158,9 +146,6 @@ class Login extends React.Component {
             </div>
         )
     }
-
-
-
 }
 
 export default Login;

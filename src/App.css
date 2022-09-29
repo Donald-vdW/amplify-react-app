@@ -164,7 +164,7 @@ body {
 }
 
 .Ext-urgent {
-  color: rgb(255, 0, 0);
+  color: rgb(214, 0, 0);
 }
 
 .mod-urgent {
@@ -172,7 +172,7 @@ body {
 }
 
 .not-urgent {
-  color: rgb(255, 251, 0);
+  color: rgb(255, 242, 0);
 }
 
 .btn {
@@ -389,6 +389,15 @@ footer {
     padding: 30px;
     border-radius: 5px;
   }
+
+  .login-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: #282c34; 
+}
 
 
 

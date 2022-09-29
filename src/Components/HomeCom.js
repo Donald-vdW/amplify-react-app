@@ -15,9 +15,6 @@ function HomeCom() {
     window.location.pathname = "/profile";
 };
 
-
-  
-
   return (
     <>
       <nav id="navbar" >

@@ -16,9 +16,6 @@ const Realname = ({ onChange, value }) => (
 );
 
 const handleLogin = () => {
-    //backendLogout();
-    //localStorage.clear();
-    //sessionStorage.clear();
     window.location.pathname = "/login";
   };
 
