@@ -18,7 +18,7 @@ const ShowTickets = () => {
 
   useEffect(() => {
     getTickets();
-  }, []);
+  }, []); 
 
   return (
     <div className="home-left">
