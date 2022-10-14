@@ -13,6 +13,13 @@ const handleHome = () => {
     window.location.pathname = "/homeAuth";
 };
 
+const handleChangePassword = () => {
+    console.log("Change password");
+};
+
+const handleChangeLocation = () => {
+    console.log("Change location");;
+};
 
 const ProfileAuth = () => {
     return (

@@ -56,7 +56,7 @@ export const SignUpAuthority = () => {
         const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/auth";
         axios
             .post(api, data)
-            .then((response) => (window.location.reload()))
+            .then((response) => (console.log(response),window.location.reload()))
             .catch((error) => console.log(error));
 
     };

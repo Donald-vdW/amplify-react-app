@@ -43,7 +43,7 @@ function Ticket() {
         }
         axios
             .patch(api, data)
-            .then()
+            .then((response) => (console.log(response)))
             .catch((error) => console.log(error));
         setTimeout(function () { window.location.reload() }, 500);
     }
@@ -57,7 +57,7 @@ function Ticket() {
         }
         axios
             .patch(api, data)
-            .then()
+            .then((response) => (console.log(response)))
             .catch((error) => console.log(error));
         setTimeout(function () { window.location.reload() }, 500);
     }
@@ -84,7 +84,7 @@ function Ticket() {
         const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/tickets/ticket";
         axios
             .get(api, { params: { TicketNo: state.state.ticketNo } })
-            .then((response) => (setTicket(response.data.Ticket.Items), setComments(response.data.Ticket.Items[0].Comments), setCommentsArray(response.data.Ticket.Items[0].Comments.split(/\r?\n/))))
+            .then((response) => (console.log(response.data.Ticket.Items[0].Comments), setTicket(response.data.Ticket.Items), setComments(response.data.Ticket.Items[0].Comments), setCommentsArray(response.data.Ticket.Items[0].Comments.split(/\r?\n/))))
             .catch((error) => console.log(error));
     }
 

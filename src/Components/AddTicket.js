@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Component } from "react";
 import React from "react";
 import axios from 'axios';
 import Swal from "sweetalert2";
@@ -7,6 +7,7 @@ export const AddTicket = () => {
   const [heading, setHeading] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState([]);
+  const [photo, setPhoto] = useState("");
   const [authority, setAuthority] = useState("");
   const [authorities, setAuthorities] = useState([]);
   const [urgency, setUrgency] = useState("");
@@ -26,7 +27,7 @@ export const AddTicket = () => {
     const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/auth/all";
     axios
       .get(api)
-      .then((response) => (setAuthorities(Object.keys(response.data.auths.Items).map((key) => response.data.auths.Items[key]))))
+      .then((response) => (console.log(response), setAuthorities(Object.keys(response.data.auths.Items).map((key) => response.data.auths.Items[key])), console.log(response.data.auths.Items)))
       .catch((error) => console.log(error));
   }
 
@@ -90,7 +91,7 @@ export const AddTicket = () => {
       const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/tickets";
       axios
         .post(api, data)
-        .then((response) => (window.location.reload()))
+        .then((response) => (console.log(response),window.location.reload()))
         .catch((error) => console.log(error));
 
   };
@@ -117,6 +118,14 @@ export const AddTicket = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+        </div>
+        <div className='form-control'>
+          <label>Upload image: </label>
+          <input
+            type='file'
+            onChange={(e) => setPhoto(URL.createObjectURL(e.target.files[0]))}
+          />
+          <img src={photo}/>
         </div>
         <div className='form-control form-control-check'>
           <label>Share Location:</label>

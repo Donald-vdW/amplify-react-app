@@ -10,7 +10,7 @@ const ShowTicketsUser = () => {
     const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/tickets/user-tickets";
     axios
       .get(api, { params: { email: JSON.parse(localStorage.getItem("email")) } })
-      .then((response) => (setTicket(Object.keys(response.data.usertickets.Items).map((key) => response.data.usertickets.Items[key]))))
+      .then((response) => (console.log(response), setTicket(Object.keys(response.data.usertickets.Items).map((key) => response.data.usertickets.Items[key])), console.log(ticket)))
       .catch((error) => console.log(error));
   }
 
@@ -27,7 +27,7 @@ const ShowTicketsUser = () => {
     }
     axios
       .patch(api, data)
-      .then()
+      .then((response) => (console.log(response)))
       .catch((error) => console.log(error));
     setTimeout(function () { window.location.reload() }, 500);
   }
@@ -41,7 +41,7 @@ const ShowTicketsUser = () => {
     }
     axios
       .patch(api, data)
-      .then()
+      .then((response) => (console.log(response)))
       .catch((error) => console.log(error));
     setTimeout(function () { window.location.reload() }, 500);
   }

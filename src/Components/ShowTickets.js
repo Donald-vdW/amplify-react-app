@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const ShowTickets = () => {
   const [tickets, setTickets] = useState([]);
@@ -9,11 +9,13 @@ const ShowTickets = () => {
   const [sortAuthority, setAuthority] = useState("");
   const [authorities, setAuthorities] = useState([]);
 
+  const navigate = useNavigate()
+
   async function getTickets() {
     const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/tickets";
     axios
       .get(api)
-      .then((response) => (setTickets(Object.keys(response.data.tickets.Items).map((key) => response.data.tickets.Items[key]))))
+      .then((response) => (console.log(response), setTickets(Object.keys(response.data.tickets.Items).map((key) => response.data.tickets.Items[key])), console.log(tickets)))
       .catch((error) => console.log(error));
   }
 
@@ -25,7 +27,7 @@ const ShowTickets = () => {
     const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/auth/all";
     axios
       .get(api)
-      .then((response) => (setAuthorities(Object.keys(response.data.auths.Items).map((key) => response.data.auths.Items[key]))))
+      .then((response) => (console.log(response), setAuthorities(Object.keys(response.data.auths.Items).map((key) => response.data.auths.Items[key])), console.log(response.data.auths.Items)))
       .catch((error) => console.log(error));
   }
 
@@ -42,7 +44,7 @@ const ShowTickets = () => {
     }
     axios
       .patch(api, data)
-      .then()
+      .then((response) => (console.log(response)))
       .catch((error) => console.log(error));
     setTimeout(function () { window.location.reload() }, 500);
   }
@@ -56,10 +58,18 @@ const ShowTickets = () => {
     }
     axios
       .patch(api, data)
-      .then()
+      .then((response) => (console.log(response)))
       .catch((error) => console.log(error));
     setTimeout(function () { window.location.reload() }, 500);
   }
+
+  const sortByAuthority = (e) => {
+
+  }
+
+
+
+
 
   return (
     <div className="home-left">
@@ -101,7 +111,7 @@ const ShowTickets = () => {
       <div>
         {tickets.map((t) => (
           <>
-            {t.Progress === "Issue closed" ? (
+            {t.Progress == "Issue closed" ? (
               <></>
             ) : (
               <>
@@ -154,9 +164,9 @@ const ShowTickets = () => {
                         }
                         state={{ ticketNo: t.TicketNo }}
                       >view issue</Link><br></br>
-                      {t.email === JSON.parse(localStorage.getItem("email")) ? (
+                      {t.email == JSON.parse(localStorage.getItem("email")) ? (
                         <>
-                          {t.Progress === "Authority has fixed the issue" ? (
+                          {t.Progress == "Authority has fixed the issue" ? (
                             <>
                               <label>Are you satisified with the solution?</label><br></br>
                               <button type="submit" className="btn" onClick={() => setSatisfied(t.TicketNo)}>Yes</button>
@@ -173,7 +183,7 @@ const ShowTickets = () => {
                   </>
                 ) : (
                   <>
-                    {(t.Authority === sortAuthority && sortUrgency === "") ? (
+                    {(t.Authority == sortAuthority && sortUrgency == "") ? (
                       <>
                         <div className="container-Auth">
                           <label className="issue-content">Day Posted: {t.Time}</label>
@@ -222,9 +232,9 @@ const ShowTickets = () => {
                             }
                             state={{ ticketNo: t.TicketNo }}
                           >view issue</Link><br></br>
-                          {t.email === JSON.parse(localStorage.getItem("email")) ? (
+                          {t.email == JSON.parse(localStorage.getItem("email")) ? (
                             <>
-                              {t.Progress === "Authority has fixed the issue" ? (
+                              {t.Progress == "Authority has fixed the issue" ? (
                                 <>
                                   <label>Are you satisified with the solution?</label><br></br>
                                   <button type="submit" className="btn" onClick={() => setSatisfied(t.TicketNo)}>Yes</button>
@@ -241,7 +251,7 @@ const ShowTickets = () => {
                       </>
                     ) : (
                       <>
-                        {(sortAuthority === "" && sortUrgency === t.urgency) ? (
+                        {(sortAuthority == "" && sortUrgency == t.urgency) ? (
                           <>
                             <div className="container-Auth">
                               <label className="issue-content">Day Posted: {t.Time}</label>
@@ -290,9 +300,9 @@ const ShowTickets = () => {
                                 }
                                 state={{ ticketNo: t.TicketNo }}
                               >view issue</Link><br></br>
-                              {t.email === JSON.parse(localStorage.getItem("email")) ? (
+                              {t.email == JSON.parse(localStorage.getItem("email")) ? (
                                 <>
-                                  {t.Progress === "Authority has fixed the issue" ? (
+                                  {t.Progress == "Authority has fixed the issue" ? (
                                     <>
                                       <label>Are you satisified with the solution?</label><br></br>
                                       <button type="submit" className="btn" onClick={() => setSatisfied(t.TicketNo)}>Yes</button>
@@ -310,7 +320,7 @@ const ShowTickets = () => {
                           </>
                         ) : (
                           <>
-                            {(sortAuthority === t.Authority && sortUrgency === t.urgency) ? (
+                            {(sortAuthority == t.Authority && sortUrgency == t.urgency) ? (
                               <>
                                 <div className="container-Auth">
                                   <label className="issue-content">Day Posted: {t.Time}</label>
@@ -359,9 +369,9 @@ const ShowTickets = () => {
                                     }
                                     state={{ ticketNo: t.TicketNo }}
                                   >view issue</Link><br></br>
-                                  {t.email === JSON.parse(localStorage.getItem("email")) ? (
+                                  {t.email == JSON.parse(localStorage.getItem("email")) ? (
                                     <>
-                                      {t.Progress === "Authority has fixed the issue" ? (
+                                      {t.Progress == "Authority has fixed the issue" ? (
                                         <>
                                           <label>Are you satisified with the solution?</label><br></br>
                                           <button type="submit" className="btn" onClick={() => setSatisfied(t.TicketNo)}>Yes</button>

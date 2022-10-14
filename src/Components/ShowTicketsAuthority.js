@@ -40,7 +40,7 @@ const ShowTicketsAuthority = () => {
         }
         axios
             .patch(api, data)
-            .then()
+            .then((response) => (console.log(response)))
             .catch((error) => console.log(error));
         setTimeout(function () { window.location.reload() }, 500);
     }
@@ -62,7 +62,7 @@ const ShowTicketsAuthority = () => {
         }
         axios
             .patch(api, data)
-            .then((response) => (setTickets(Object.keys(response.data.tickets.Items).map((key) => response.data.tickets.Items[key]))))
+            .then((response) => (console.log(response), setTickets(Object.keys(response.data.tickets.Items).map((key) => response.data.tickets.Items[key])), window.location.reload()))
             .catch((error) => console.log(error));
         setTimeout(function () { window.location.reload() }, 500);
 
