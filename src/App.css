@@ -145,6 +145,7 @@ body {
 .issue-content {
   float: right;
   display:inline-block;
+  z-index: -10;
 }
 
 .header {
@@ -238,6 +239,12 @@ body {
   margin: 5px;
   padding: 3px 7px;
   font-size: 17px;
+}
+
+.form-control img {
+  width: 100%;
+  margin: 5px;
+  padding: 3px 7px;
 }
 
 .form-control-check {
@@ -398,6 +405,81 @@ footer {
     height: 100%;
     background-color: #282c34; 
 }
+
+.ticket_label {
+  color: rgb(28, 121, 184);
+}
+
+.ticket_label:hover {
+  text-decoration: underline;
+  color: rgb(28, 121, 184);
+  cursor: pointer;
+}
+
+.ticket-left {
+  width: 56.5%;
+  margin-top: 1%;
+  margin-bottom: 2%;
+  margin-left: 2%;
+  margin-right: 1.5%;
+  float: left;
+  overflow: auto;
+  
+}
+
+.ticket-right {
+  width: 36.5%;
+  float: right;
+  margin-top: 1%;
+  margin-bottom: 2%;
+  margin-right: 2%;
+  margin-left: 1.5%;
+  overflow: auto;
+}
+
+.ticket-chat {
+  width: 80%;
+  float: left;
+  margin-bottom: 2%;
+  margin-right: 2%;
+  margin-left: 1.5%;
+
+}
+
+.container-Chat {
+  margin: 2% ;
+  width: 80%;
+  overflow: auto;
+  border: 1px solid #282c34;
+  padding: 30px;
+  border-radius: 5px;
+  max-height: 500px;
+ 
+}
+
+.commentsOther {
+  margin: 10px;
+  overflow: auto;
+  border: 2px solid #282c34;
+  border-radius: 5px;
+  text-align: left;
+  align-items: left;
+  background: #282c34;
+  color: #fff;
+}
+
+.commentsYou {
+  margin: 10px;
+  overflow: auto;
+  float: right;
+  border: 2px solid #47494d;
+  border-radius: 5px;
+  text-align: right;
+  align-items: right;
+  background: #47494d;
+  color: #fff;
+}
+
 
 
 

@@ -2,7 +2,7 @@ import '../App.css';
 import React from 'react'
 
 const handleLogout = () => {
-    window.location.pathname = "/login";
+    window.location.pathname = "/";
 };
 
 const handleProfile = () => {
@@ -10,7 +10,7 @@ const handleProfile = () => {
 };
 
 const handleHome = () => {
-    window.location.pathname = "/";
+    window.location.pathname = "/home";
 };
 
 const handleChangePassword = () => {
@@ -20,6 +20,10 @@ const handleChangePassword = () => {
 const handleChangeLocation = () => {
     console.log("Change location");;
 };
+
+const handleTickets = () => {
+    window.location.pathname = "/userTickets";
+  };
 
 const Profile = () => {
     return (
@@ -35,6 +39,11 @@ const Profile = () => {
                                     Profile  {" "}
                                 </label>
                             </li>
+                            <li >
+              <label onClick={handleTickets}>
+                Your Tickets  {" "}
+              </label>
+            </li>
                             <li>
                                 <label onClick={handleLogout}>
                                     Logout  {" "}
@@ -49,23 +58,10 @@ const Profile = () => {
                 <h2>Profile</h2>
                 <form className='add-form'>
                     <div className='form-control'>
-                        <label>Name:</label>
+                        <label>Name: {JSON.parse(localStorage.getItem("name"))}</label>
                     </div>
                     <div className='form-control'>
-                        <label>Username:</label>
-                    </div>
-                    <div className='form-control'>
-                        <label>Email:</label>
-                    </div>
-                    <div className="post-btn-div">
-                        <button className="btn" onClick={handleChangePassword}>
-                            Change password
-                        </button>
-                    </div>
-                    <div className="post-btn-div">
-                        <button className="btn" onClick={handleChangeLocation}>
-                            Change location
-                        </button>
+                        <label>Email: {JSON.parse(localStorage.getItem("email"))}</label>
                     </div>
                 </form>
             </div>

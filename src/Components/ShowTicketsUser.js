@@ -3,33 +3,19 @@ import React from "react";
 import axios from 'axios';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const ShowTickets = () => {
-  const [tickets, setTickets] = useState([]);
-
-  const navigate = useNavigate()
+const ShowTicketsUser = () => {
+  const [ticket, setTicket] = useState([]);
 
   async function getTickets() {
-    const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/tickets";
+    const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/tickets/user-tickets";
     axios
-      .get(api)
-      .then((response) => (console.log(response), setTickets(Object.keys(response.data.tickets.Items).map((key) => response.data.tickets.Items[key])), console.log(tickets)))
+      .get(api, { params: { email: JSON.parse(localStorage.getItem("email")) } })
+      .then((response) => (console.log(response), setTicket(Object.keys(response.data.usertickets.Items).map((key) => response.data.usertickets.Items[key])), console.log(ticket)))
       .catch((error) => console.log(error));
   }
 
   useEffect(() => {
     getTickets();
-  }, []);
-
-  function filterTickets(filter) {
-    setTickets(tickets.filter(function (ticket) {
-      console.log(ticket)
-      return(ticket.urgency == filter)
-    }))
-    console.log(tickets)
-  }
-
-  useEffect(() => {
-    filterTickets("Very urgent");
   }, []);
 
   function setUnsatisfied(ticketNo) {
@@ -60,15 +46,13 @@ const ShowTickets = () => {
     setTimeout(function () { window.location.reload() }, 500);
   }
 
-  
-
 
 
   return (
-    <div className="home-left">
-      <h2>Current Issues in your Community</h2>
+    <div className="container-Auth">
+      <h2>Issues You Have Posted</h2>
       <div>
-        {tickets.map((t) => (
+        {ticket.map((t) => (
           <div className="container-Auth">
             <label className="issue-content">{t.Time}</label>
             <h3 >
@@ -133,10 +117,10 @@ const ShowTickets = () => {
             )}
           </div>
         ))}
+      </div>
     </div>
-    </div >
   )
 }
 
-export default ShowTickets
+export default ShowTicketsUser
 

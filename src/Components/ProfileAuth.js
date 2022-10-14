@@ -2,7 +2,7 @@ import '../App.css';
 import React from 'react'
 
 const handleLogout = () => {
-    window.location.pathname = "/login";
+    window.location.pathname = "/";
 };
 
 const handleProfile = () => {
@@ -49,20 +49,10 @@ const ProfileAuth = () => {
                 <h2>Profile</h2>
                 <form className='add-form'>
                     <div className='form-control'>
-                        <label>Company/Authority Name:</label>
+                        <label>Company/Authority Name: {JSON.parse(localStorage.getItem("name"))}</label>
                     </div>
                     <div className='form-control'>
-                        <label>Email:</label>
-                    </div>
-                    <div className="post-btn-div">
-                        <button className="btn" onClick={handleChangePassword}>
-                            Change password
-                        </button>
-                    </div>
-                    <div className="post-btn-div">
-                        <button className="btn" onClick={handleChangeLocation}>
-                            Change location
-                        </button>
+                        <label>Email: {JSON.parse(localStorage.getItem("email"))}</label>
                     </div>
                 </form>
             </div>

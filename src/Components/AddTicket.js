@@ -6,12 +6,10 @@ import Swal from "sweetalert2";
 export const AddTicket = () => {
   const [heading, setHeading] = useState("");
   const [description, setDescription] = useState("");
-  const [user, setUser] = useState("");
-  const [progress, setProgress] = useState("");
   const [location, setLocation] = useState([]);
   const [photo, setPhoto] = useState("");
   const [authority, setAuthority] = useState("");
-  const [community, setCommunity] = useState("");
+  const [authorities, setAuthorities] = useState([]);
   const [urgency, setUrgency] = useState("");
 
   function setIssueLocation() {
@@ -24,6 +22,18 @@ export const AddTicket = () => {
       }
     );
   }
+
+  async function getAuthorities() {
+    const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/auth/all";
+    axios
+      .get(api)
+      .then((response) => (console.log(response), setAuthorities(Object.keys(response.data.auths.Items).map((key) => response.data.auths.Items[key])), console.log(response.data.auths.Items)))
+      .catch((error) => console.log(error));
+  }
+
+  useEffect(() => {
+    getAuthorities();
+  }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -69,8 +79,7 @@ export const AddTicket = () => {
     }
 
     const data = {
-      TicketNo: 10003,
-      email: "communitymember@email.com",
+      email: JSON.parse(localStorage.getItem("email")),
       heading: heading,
       description: description,
       urgency: urgency,
@@ -79,7 +88,7 @@ export const AddTicket = () => {
       longitude: location[1]
     }
 
-      const api = "https://6mby5e4aqe.execute-api.us-east-1.amazonaws.com/ticket/tickets";
+      const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/tickets";
       axios
         .post(api, data)
         .then((response) => (console.log(response),window.location.reload()))
@@ -110,7 +119,14 @@ export const AddTicket = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-
+        <div className='form-control'>
+          <label>Upload image: </label>
+          <input
+            type='file'
+            onChange={(e) => setPhoto(URL.createObjectURL(e.target.files[0]))}
+          />
+          <img src={photo}/>
+        </div>
         <div className='form-control form-control-check'>
           <label>Share Location:</label>
           <input
@@ -148,9 +164,9 @@ export const AddTicket = () => {
             <option value={authority} hidden>
               Authority/Company
             </option>
-            <option value={"Road Works"}>Road Works</option>
-            <option value={"Park People"}>Park People</option>
-            <option value={"Water Works"}>Water Works</option>
+            {authorities.map((a) => (
+              <option value={a.Authority}>{a.Authority}</option>
+            ))}
           </select>
         </div>
 

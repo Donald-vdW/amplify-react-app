@@ -4,7 +4,7 @@ import ShowTicketsAuthority from './ShowTicketsAuthority.js';
 
 function HomeAuth() {
   const handleLogout = () => {
-    window.location.pathname = "/login";
+    window.location.pathname = "/";
   };
 
   const handleProfile = () => {

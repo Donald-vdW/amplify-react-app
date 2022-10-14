@@ -1,27 +1,26 @@
-import AddTicket from './AddTicket.js';
 import '../App.css';
 import React from 'react'
-import ShowTickets from './ShowTickets.js';
+import ShowTicketsUser from './ShowTicketsUser.js';
 
-function HomeCom() {
+function UserTickets() {
   const handleLogout = () => {
     window.location.pathname = "/";
   };
 
   const handleProfile = () => {
-    window.location.pathname = "/profile";
-};
+    window.location.pathname = "/Profile";
+  };
 
-const handleTickets = () => {
-  window.location.pathname = "/userTickets";
-};
+  const handleHome = () => {
+    window.location.pathname = "/home";
+  };
 
   return (
     <>
       <nav id="navbar" >
         <div className="nav-wrapper">
           <div >
-            <h1 className="logo">FixedIt</h1>
+            <h1 className="logo" onClick={handleHome}>FixedIt</h1>
           </div>
           <ul >
             <li >
@@ -30,7 +29,7 @@ const handleTickets = () => {
               </label>
             </li>
             <li >
-              <label onClick={handleTickets}>
+              <label >
                 Your Tickets  {" "}
               </label>
             </li>
@@ -39,14 +38,12 @@ const handleTickets = () => {
                 Logout  {" "}
               </label>
             </li>
-
           </ul>
         </div>
       </nav>
 
       <div className="App">
-        <ShowTickets></ShowTickets>
-        <AddTicket></AddTicket>
+        <ShowTicketsUser></ShowTicketsUser>
       </div>
     </>
   );
@@ -54,4 +51,4 @@ const handleTickets = () => {
 
 }
 
-export default HomeCom;
+export default UserTickets;
