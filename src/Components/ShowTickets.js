@@ -18,7 +18,7 @@ const ShowTickets = () => {
 
   useEffect(() => {
     getTickets();
-  }, []);
+  }, []); 
 
   function filterTickets(filter) {
     setTickets(tickets.filter(function (ticket) {
