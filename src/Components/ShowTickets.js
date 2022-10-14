@@ -19,6 +19,7 @@ const ShowTickets = () => {
   useEffect(() => {
     getTickets();
   }, []); 
+<<<<<<< HEAD
 
   function filterTickets(filter) {
     setTickets(tickets.filter(function (ticket) {
@@ -31,6 +32,8 @@ const ShowTickets = () => {
   useEffect(() => {
     filterTickets("Very urgent");
   }, []);
+=======
+>>>>>>> 7a6818f0f71875cebf6ba7b27ef8df1b41adad94
 
   function setUnsatisfied(ticketNo) {
     const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/tickets";
