@@ -8,6 +8,7 @@ const ShowTicketsAuthority = () => {
     const [tickets, setTickets] = useState([]);
     const [ticket, setTicket] = useState("");
     const [date, setDate] = useState("");
+    const [sortUrgency, setUrgency] = useState("");
 
     async function getTickets() {
         const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/tickets/auth-tickets";
@@ -39,7 +40,7 @@ const ShowTicketsAuthority = () => {
         }
         axios
             .patch(api, data)
-            .then((response) => (console.log(response)))
+            .then()
             .catch((error) => console.log(error));
         setTimeout(function () { window.location.reload() }, 500);
     }
@@ -48,23 +49,23 @@ const ShowTicketsAuthority = () => {
         if (date === "") {
             Swal.fire("Please choose a day you are going to fix this issue", "Try again!", "warning");
             return;
-          }
-          if (isBeforeToday(date)) {
+        }
+        if (isBeforeToday(date)) {
             Swal.fire("Please choose an appropriate day", "Try again!", "warning");
             return;
-          }
-          const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/tickets";
-          const data = {
+        }
+        const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/tickets";
+        const data = {
             TicketNo: ticket,
             updateKey: "Progress",
             updateValue: 'Day to commence fixing this issue is ' + date
         }
         axios
             .patch(api, data)
-            .then((response) => (console.log(response), setTickets(Object.keys(response.data.tickets.Items).map((key) => response.data.tickets.Items[key])), window.location.reload()))
+            .then((response) => (setTickets(Object.keys(response.data.tickets.Items).map((key) => response.data.tickets.Items[key]))))
             .catch((error) => console.log(error));
         setTimeout(function () { window.location.reload() }, 500);
-       
+
     }
 
     function setProgressDone(ticket) {
@@ -87,92 +88,215 @@ const ShowTicketsAuthority = () => {
         <div className="container-Auth">
             <h2>Current Issues in your Community</h2>
             <div>
-                {tickets.map((t) => (
-                    <div className="container-Auth">
-                        <label className="issue-content">{t.Time}</label>
-                        <h3 >
-                            {t.heading}
-                        </h3>
+                <div className="container-Auth">
+                    <h3>Sort Feed</h3>
+                    <label>Sort by urgency:</label>
+                    <span> </span>
+                    <select
+                        required
+                        //value={urgency}
+                        onChange={(e) => setUrgency(e.target.value)}
+                    >
+                        <option value={sortUrgency} hidden>
+                            Select urgency
+                        </option>
+                        <option value={"Extremely urgent"}>Extremely urgent</option>
+                        <option value={"Very urgent"}>Very urgent</option>
+                        <option value={"Moderately urgent"}>moderately urgent</option>
+                        <option value={"Not urgent"}>Not urgent</option>
+                    </select><br></br>
 
-                        <label >{t.description}</label><br></br>
-                        {t.urgency === "Extremely urgent" ? (
-                            <>
-                                <label >Urgency: </label>
-                                <label className="Ext-urgent">{t.urgency}</label><br></br>
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                        {t.urgency === "Very urgent" ? (
-                            <>
-                                <label >Urgency: </label>
-                                <label className="very-urgent">{t.urgency}</label><br></br>
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                        {t.urgency === "Not urgent" ? (
-                            <>
-                                <label >Urgency: </label>
-                                <label className="not-urgent">{t.urgency}</label><br></br>
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                        {t.urgency === "Moderately urgent" ? (
-                            <>
-                                <label >Urgency: </label>
-                                <label className="mod-urgent">{t.urgency}</label><br></br>
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                        <label >Authority: {t.Authority}</label><br></br>
-                        <label>Progress: {t.Progress}</label><br></br>
-                        <Link
-                            to={
-                                "/TicketAuth"
-                            }
-                            state={{ ticketNo: t.TicketNo }}
-                        >view issue</Link><br></br>
-                        {t.Progress === "Not attended to" ? (
-                            <>
-                                <button type="submit" className="btn" onClick={() => setProgress(t.TicketNo)}>Take issue</button>
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                        {t.Progress === "Active" ? (
-                            <>
-                                <label>Set the day to start fixing this issue: </label>
-                                <input
-                                    type='date'
-                                    placeholder='Add heading...'
-                                    value={date}
-                                    onChange={(e) => (setDate(e.target.value),setTicket(t.TicketNo))}
-                                /><br></br>
-                                <button type="submit" className="btn" onClick={() => submitDate()}>Set Day</button>
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                        {t.Progress.includes("Day") ? (
-                            <>
-                                <br></br>
-                                <button type="submit" className="btn" onClick={() => setProgressDone(t.TicketNo)}>Issue fixed</button>
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                        {t.Progress === "Community member is unsatisfied with the issue solution" ? (
+                </div>
+                {sortUrgency == "" ? (
+                    <>
+                        {tickets.map((t) => (
+                            <div className="container-Auth">
+                                <label className="issue-content">Day Posted: {t.Time}</label>
+                                <h3 >
+                                    {t.heading}
+                                </h3>
+
+                                <label >{t.description}</label><br></br>
+                                {t.urgency === "Extremely urgent" ? (
+                                    <>
+                                        <label >Urgency: </label>
+                                        <label className="Ext-urgent">{t.urgency}</label><br></br>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                                {t.urgency === "Very urgent" ? (
+                                    <>
+                                        <label >Urgency: </label>
+                                        <label className="very-urgent">{t.urgency}</label><br></br>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                                {t.urgency === "Not urgent" ? (
+                                    <>
+                                        <label >Urgency: </label>
+                                        <label className="not-urgent">{t.urgency}</label><br></br>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                                {t.urgency === "Moderately urgent" ? (
+                                    <>
+                                        <label >Urgency: </label>
+                                        <label className="mod-urgent">{t.urgency}</label><br></br>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                                <label >Authority: {t.Authority}</label><br></br>
+                                <label>Progress: {t.Progress}</label><br></br>
+                                <Link
+                                    to={
+                                        "/TicketAuth"
+                                    }
+                                    state={{ ticketNo: t.TicketNo }}
+                                >view issue</Link><br></br>
+                                {t.Progress === "Not attended to" ? (
+                                    <>
+                                        <button type="submit" className="btn" onClick={() => setProgress(t.TicketNo)}>Take issue</button>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                                {t.Progress === "Active" ? (
+                                    <>
+                                        <label>Set the day to start fixing this issue: </label>
+                                        <input
+                                            type='date'
+                                            placeholder='Add heading...'
+                                            value={date}
+                                            onChange={(e) => (setDate(e.target.value), setTicket(t.TicketNo))}
+                                        /><br></br>
+                                        <button type="submit" className="btn" onClick={() => submitDate()}>Set Day</button>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                                {t.Progress.includes("Day") ? (
+                                    <>
+                                        <br></br>
+                                        <button type="submit" className="btn" onClick={() => setProgressDone(t.TicketNo)}>Issue fixed</button>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                                {t.Progress === "Community member is unsatisfied with the issue solution" ? (
                                     <>
                                         <button type="submit" className="btn" onClick={() => setProgress(t.TicketNo)}>Retake Issue</button>
                                     </>
                                 ) : (
                                     <></>
                                 )}
-                    </div>
-                ))}
+                            </div>
+                        ))}
+                    </>
+                ) : (
+                    <>
+                        {tickets.map((t) => (
+                            <>
+                            {sortUrgency == t.urgency ? (
+                                <>
+                                <div className="container-Auth">
+                                    <label className="issue-content">Day Posted: {t.Time}</label>
+                                    <h3 >
+                                        {t.heading}
+                                    </h3>
+
+                                    <label >{t.description}</label><br></br>
+                                    {t.urgency === "Extremely urgent" ? (
+                                        <>
+                                            <label >Urgency: </label>
+                                            <label className="Ext-urgent">{t.urgency}</label><br></br>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
+                                    {t.urgency === "Very urgent" ? (
+                                        <>
+                                            <label >Urgency: </label>
+                                            <label className="very-urgent">{t.urgency}</label><br></br>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
+                                    {t.urgency === "Not urgent" ? (
+                                        <>
+                                            <label >Urgency: </label>
+                                            <label className="not-urgent">{t.urgency}</label><br></br>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
+                                    {t.urgency === "Moderately urgent" ? (
+                                        <>
+                                            <label >Urgency: </label>
+                                            <label className="mod-urgent">{t.urgency}</label><br></br>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
+                                    <label >Authority: {t.Authority}</label><br></br>
+                                    <label>Progress: {t.Progress}</label><br></br>
+                                    <Link
+                                        to={
+                                            "/TicketAuth"
+                                        }
+                                        state={{ ticketNo: t.TicketNo }}
+                                    >view issue</Link><br></br>
+                                    {t.Progress === "Not attended to" ? (
+                                        <>
+                                            <button type="submit" className="btn" onClick={() => setProgress(t.TicketNo)}>Take issue</button>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
+                                    {t.Progress === "Active" ? (
+                                        <>
+                                            <label>Set the day to start fixing this issue: </label>
+                                            <input
+                                                type='date'
+                                                placeholder='Add heading...'
+                                                value={date}
+                                                onChange={(e) => (setDate(e.target.value), setTicket(t.TicketNo))}
+                                            /><br></br>
+                                            <button type="submit" className="btn" onClick={() => submitDate()}>Set Day</button>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
+                                    {t.Progress.includes("Day") ? (
+                                        <>
+                                            <br></br>
+                                            <button type="submit" className="btn" onClick={() => setProgressDone(t.TicketNo)}>Issue fixed</button>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
+                                    {t.Progress === "Community member is unsatisfied with the issue solution" ? (
+                                        <>
+                                            <button type="submit" className="btn" onClick={() => setProgress(t.TicketNo)}>Retake Issue</button>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
+                                </div>
+
+                                </>
+                            ) : (
+                                <></>
+                            )}
+                                
+                            </>
+                        ))}
+                    </>
+                )}
+
             </div>
         </div>
     )

@@ -63,7 +63,7 @@ export const SignUpUser = () => {
         const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/users";
         axios
             .post(api, data)
-            .then((response) => (console.log(response),window.location.reload()))
+            .then((response) => (window.location.reload()))
             .catch((error) => console.log(error));
 
     };

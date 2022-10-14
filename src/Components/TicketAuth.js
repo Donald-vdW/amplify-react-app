@@ -3,8 +3,7 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import ShowMap from './ShowMap';
-import Comment from './Comment';
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 
 function TicketAuth() {
@@ -57,7 +56,7 @@ function TicketAuth() {
         }
         axios
             .patch(api, data)
-            .then((response) => (console.log(response), setTicket(Object.keys(response.data.tickets.Items).map((key) => response.data.tickets.Items[key])), window.location.reload()))
+            .then()
             .catch((error) => console.log(error));
         setTimeout(function () { window.location.reload() }, 500);
 
@@ -108,7 +107,7 @@ function TicketAuth() {
         }
         axios
             .patch(api, data)
-            .then((response) => (console.log(response), setTicket(Object.keys(response.data.tickets.Items).map((key) => response.data.tickets.Items[key])), window.location.reload()))
+            .then()
             .catch((error) => console.log(error));
         setTimeout(function () { window.location.reload() }, 500);
 
@@ -120,7 +119,7 @@ function TicketAuth() {
         const api = "https://ohdkylfkx2.execute-api.us-east-1.amazonaws.com/testUser/tickets/ticket";
         axios
             .get(api, { params: { TicketNo: state.state.ticketNo } })
-            .then((response) => (console.log(response.data.Ticket.Items[0].Comments), setTicket(response.data.Ticket.Items), setComments(response.data.Ticket.Items[0].Comments), setCommentsArray(response.data.Ticket.Items[0].Comments.split(/\r?\n/))))
+            .then((response) => (setTicket(response.data.Ticket.Items), setComments(response.data.Ticket.Items[0].Comments), setCommentsArray(response.data.Ticket.Items[0].Comments.split(/\r?\n/))))
             .catch((error) => console.log(error));
     }
 
