@@ -6,20 +6,13 @@ const handleLogout = () => {
 };
 
 const handleProfile = () => {
-    window.location.pathname = "/profile";
+    window.location.pathname = "/profileAuth";
 };
 
 const handleHome = () => {
     window.location.pathname = "/homeAuth";
 };
 
-const handleChangePassword = () => {
-    console.log("Change password");
-};
-
-const handleChangeLocation = () => {
-    console.log("Change location");;
-};
 
 const ProfileAuth = () => {
     return (

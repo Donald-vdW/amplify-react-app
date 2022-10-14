@@ -80,7 +80,7 @@ export const Login = () => {
         axios
             .get(api, {params: {email: email,
                 password: password}})
-            .then((response) => (console.log(response.data.Message),loginAccountCom(response.data.Message,response.data.Name)))
+            .then((response) => (loginAccountCom(response.data.Message,response.data.Name)))
             .catch((error) => console.log(error));
             
     };
@@ -118,7 +118,7 @@ export const Login = () => {
         axios
             .get(api, {params: {Email: email,
                 Password: password}})
-            .then((response) => (console.log(response.data.Message),loginAccountAuth(response.data.Message,response.data.Name)))
+            .then((response) => (loginAccountAuth(response.data.Message,response.data.Name)))
             .catch((error) => console.log(error));
             
     };
